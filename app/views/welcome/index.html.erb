@@ -1,1 +1,10 @@
 <h1>HELLO THIS IS SPEED DATING</h1>
+
+<div>
+    <%= form_tag({:action => :upload}, :multipart => true) do %>
+      <%= file_field_tag 'attendees' %>
+      <div class="actions">
+          <%= submit_tag 'Submit' %>
+       </div>
+    <% end %>
+</div>
