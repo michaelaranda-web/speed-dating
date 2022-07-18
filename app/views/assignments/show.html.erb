@@ -3,12 +3,27 @@
 <h2>List of attendees:</h2>
 
 <ul>
-    <% @attendees.each do |attendee| %>
-        <li>
-            <div><%= attendee.name %></div>
-            <div><%= attendee.age %></div>
-            <div><%= attendee.gender %></div>
-            <div><%= attendee.phone_number %></div>
-        </li>
+    <% @pairings_by_round.each_with_index do |pairs_for_round, i| %>
+        <div>
+            <h3>Round <%= i+1 %></h3>
+            
+            <h4>Pairs:</h4>
+            <ul>
+                <% pairs_for_round.each do |pair| %>
+                  <li>
+                    <%= pair %>
+                  </li>
+                <% end %>
+            </ul>
+                
+            <h4>Minglers:</h4>
+            <ul>
+                <% @mingle_table_by_round[i].each do |mingler| %>
+                  <li>
+                    <%= mingler[:name] %>
+                  </li>
+                <% end %>
+            </ul>    
+        </div>
     <% end %>
 </ul>
