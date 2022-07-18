@@ -1,0 +1,14 @@
+<h1>SHOW ASSIGNMENTS FOR SESSION <%= @assignments_session.id %></h1>
+
+<h2>List of attendees:</h2>
+
+<ul>
+    <% @attendees.each do |attendee| %>
+        <li>
+            <div><%= attendee.name %></div>
+            <div><%= attendee.age %></div>
+            <div><%= attendee.gender %></div>
+            <div><%= attendee.phone_number %></div>
+        </li>
+    <% end %>
+</ul>

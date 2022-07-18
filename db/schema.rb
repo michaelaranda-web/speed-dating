@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_18_020706) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_18_035341) do
+  create_table "assignments", charset: "utf8", force: :cascade do |t|
+    t.integer "num_tables"
+    t.integer "num_rounds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "attendees", charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.integer "age"
@@ -18,6 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_18_020706) do
     t.string "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assignments_id"
   end
 
 end

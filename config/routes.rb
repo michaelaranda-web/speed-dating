@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   root "welcome#index"
   
   post 'upload', to: 'welcome#upload'
-  get 'assignments', to: 'assignments#index'
-  get 'assignments/:id', to: 'assignments#show'
+  
+  resources :assignments
 end
