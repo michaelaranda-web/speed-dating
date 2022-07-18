@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
     csv_text = params[:attendees].read
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
-      puts row
+      Attendee.create(name: row[0], age: row[1].to_i, gender: row[2], phone_number: row[3])
     end
   end
 end
