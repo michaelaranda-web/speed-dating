@@ -10,6 +10,8 @@ Rails.application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+  
+  config.log_level = :info
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -67,5 +69,5 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
-  config.hosts << "583f51f8f3474186afae475242e39122.vfs.cloud9.us-east-1.amazonaws.com"
+  config.hosts << "d742cbf83bfb4e86910654c373df4ea9.vfs.cloud9.us-east-1.amazonaws.com"
 end
