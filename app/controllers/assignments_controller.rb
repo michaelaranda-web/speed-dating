@@ -16,10 +16,22 @@ class AssignmentsController < ApplicationController
     number_of_assignments_needed = [@assignments_session.num_tables, @male_attendees.count].min
     
     @assignments_session.num_rounds.times do |n|
+      people_to_match_for_round = []
       assignments_for_round = []
       males_already_paired = []
       females_already_paired = []
       minglers = []
+      
+      minglers_from_previous_round = @mingle_table_by_round[n-1]
+      if minglers_from_previous_round.present? && minglers_from_previous_round.length > 0
+        minglers_from_previous_round.each do |attendee_who_mingled_last_round|
+          if attendee_who_mingled_last_round.gender == "M"
+            @male_attendees = move_attendee_to_start_of_line(attendee_who_mingled_last_round, @male_attendees)
+          else
+            @female_attendees = move_attendee_to_start_of_line(attendee_who_mingled_last_round, @female_attendees)
+          end
+        end
+      end
       
       @male_attendees.slice(0..number_of_assignments_needed-1).each_with_index do |male_attendee, i|
         @female_attendees.each do |female_attendee|
@@ -48,5 +60,12 @@ class AssignmentsController < ApplicationController
       
       @mingle_table_by_round.push(minglers)
     end
+  end
+  
+  private
+  
+  def move_attendee_to_start_of_line(attendee, attendee_array)
+    original_array_without_attendee = attendee_array.filter {|a| a.id != attendee.id}
+    [attendee, original_array_without_attendee].flatten
   end
 end
