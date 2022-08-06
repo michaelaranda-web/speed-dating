@@ -36,11 +36,19 @@ class AssignmentsController < ApplicationController
       @male_attendees.slice(0..number_of_assignments_needed-1).each_with_index do |male_attendee, i|
         @female_attendees.each do |female_attendee|
           pairing_string = "#{male_attendee[:name]} + #{female_attendee[:name]}"
+          pairing_hash = {
+            male: male_attendee[:name],
+            female: female_attendee[:name],
+            table: "Table #{i+1}"
+          }
+          
           if pairings_already_done.include?(pairing_string) || females_already_paired.include?(female_attendee.id)
             next
           else
-            assignments_for_round.push("#{pairing_string} @ Table #{i+1}")
+            assignments_for_round.push(pairing_hash)
+            
             pairings_already_done.push(pairing_string)
+            
             males_already_paired.push(male_attendee.id)
             females_already_paired.push(female_attendee.id)
             break
