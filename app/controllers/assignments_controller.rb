@@ -10,8 +10,8 @@ class AssignmentsController < ApplicationController
     
     @assignments_session = Assignment.find(params[:id])
     
-    @male_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "M").shuffle
-    @female_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "F").shuffle
+    @male_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "male").shuffle
+    @female_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "female").shuffle
     
     number_of_assignments_needed = [@assignments_session.num_tables, @male_attendees.count].min
     
@@ -25,7 +25,7 @@ class AssignmentsController < ApplicationController
       minglers_from_previous_round = @mingle_table_by_round[n-1]
       if minglers_from_previous_round.present? && minglers_from_previous_round.length > 0
         minglers_from_previous_round.each do |attendee_who_mingled_last_round|
-          if attendee_who_mingled_last_round.gender == "M"
+          if attendee_who_mingled_last_round.gender == "male"
             @male_attendees = move_attendee_to_start_of_line(attendee_who_mingled_last_round, @male_attendees)
           else
             @female_attendees = move_attendee_to_start_of_line(attendee_who_mingled_last_round, @female_attendees)
@@ -38,8 +38,7 @@ class AssignmentsController < ApplicationController
           pairing_string = "#{male_attendee[:name]} + #{female_attendee[:name]}"
           pairing_hash = {
             male: male_attendee[:name],
-            female: female_attendee[:name],
-            table: "Table #{i+1}"
+            female: female_attendee[:name]
           }
           
           if pairings_already_done.include?(pairing_string) || females_already_paired.include?(female_attendee.id)
@@ -55,6 +54,8 @@ class AssignmentsController < ApplicationController
           end
         end
       end
+      
+      assignments_for_round = assignments_for_round.shuffle
       
       @pairings_by_round.push(assignments_for_round)
       

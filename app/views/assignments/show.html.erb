@@ -1,5 +1,5 @@
 <div id="page-content">
-  <h1>SUPER COOL SPEED DATING APP</h1>
+  <h1>Christian Speed Dating SD</h1>
   
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <% @pairings_by_round.length.times do |i| %>
@@ -20,14 +20,14 @@
         <h3>Round <%= i+1 %></h3>
         
         <ul>
-          <% pairs_for_round.each do |pair| %>
+          <% pairs_for_round.each_with_index do |pair, j| %>
             <li>
-              <%= pair[:table] %> <%= pair[:male] %> <%= pair[:female] %>
+              <span class="table-number">Table <%= j+1 %></span> <%= pair[:male] %> & <%= pair[:female] %>
             </li>
           <% end %>
         </ul>
             
-        <h4>Mingle Table:</h4>
+        <h4>Minglers:</h4>
         <ul>
           <% @mingle_table_by_round[i].each do |mingler| %>
             <li>
