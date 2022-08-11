@@ -2,6 +2,14 @@
   padding: 15px;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
+  
+  .tab-pane .tab-pane-container {
+    display: flex;
+    
+    #minglers-section-container {
+      padding-left: 35px;
+    }
+  }
 }
 
 .tab-pane h3, .tab-pane h4 {
@@ -32,4 +40,18 @@ ul {
 
 h1, h2, h3, h4 {
   font-weight: 400;
+}
+
+.pairs-section {
+  column-count: 2;
+  display: inline-block;
+  padding-left: 10px;
+  
+  li {
+    padding: 3px 10px 0 0;
+  }
+}
+
+.minglers-section {
+  padding-left: 10px;
 }

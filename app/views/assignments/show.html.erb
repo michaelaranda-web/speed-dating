@@ -17,24 +17,30 @@
       <% show_active_string = i == 0 ? "show active" : "" %>
     
       <div class="tab-pane fade <%= show_active_string %>" id="round-<%= i %>-tab-pane" role="tabpanel" aria-labelledby="round-<%= i %>" tabindex="0">
-        <h3>Round <%= i+1 %></h3>
-        
-        <ul>
-          <% pairs_for_round.each_with_index do |pair, j| %>
-            <li>
-              <span class="table-number">Table <%= j+1 %></span> <%= pair[:male] %> & <%= pair[:female] %>
-            </li>
-          <% end %>
-        </ul>
+        <div class="tab-pane-container">
+          <div id="pairs-section-container">
+            <h3>Round <%= i+1 %></h3>
             
-        <h4>Minglers:</h4>
-        <ul>
-          <% @mingle_table_by_round[i].each do |mingler| %>
-            <li>
-              <%= mingler[:name] %>
-            </li>
-          <% end %>
-        </ul>    
+            <ul class="pairs-section">
+              <% pairs_for_round.each_with_index do |pair, j| %>
+                <li>
+                  <span class="table-number">Table <%= j+1 %></span> <%= pair[:male] %> & <%= pair[:female] %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          
+          <div id="minglers-section-container">
+            <h3>Minglers:</h3>
+            <ul class="minglers-section">
+              <% @mingle_table_by_round[i].each do |mingler| %>
+                <li>
+                  <%= mingler[:name] %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>

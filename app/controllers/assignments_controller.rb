@@ -13,7 +13,7 @@ class AssignmentsController < ApplicationController
     @male_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "male").shuffle
     @female_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "female").shuffle
     
-    number_of_assignments_needed = [@assignments_session.num_tables, @male_attendees.count].min
+    number_of_assignments_needed = [@assignments_session.num_tables, @male_attendees.count, @female_attendees.count].min
     
     @assignments_session.num_rounds.times do |n|
       need_to_rerun_pairing = true
@@ -40,7 +40,7 @@ class AssignmentsController < ApplicationController
       
         @male_attendees.slice(0..number_of_assignments_needed-1).shuffle.each_with_index do |male_attendee, i|
           @female_attendees.each do |female_attendee|
-            pairing_string = "#{male_attendee[:name]} + #{female_attendee[:name]}"
+            pairing_string = "#{male_attendee[:name]}#{male_attendee[:id]} + #{female_attendee[:name]}#{female_attendee[:id]}"
             pairing_hash = {
               male: male_attendee[:name],
               female: female_attendee[:name]
