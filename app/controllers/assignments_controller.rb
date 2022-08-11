@@ -14,6 +14,7 @@ class AssignmentsController < ApplicationController
     @female_attendees = Attendee.where(assignments_id: @assignments_session.id, gender: "female").shuffle
     
     number_of_assignments_needed = [@assignments_session.num_tables, @male_attendees.count, @female_attendees.count].min
+    @icebreaker_questions = IcebreakerQuestion.first(@assignments_session.num_rounds)
     
     @assignments_session.num_rounds.times do |n|
       need_to_rerun_pairing = true

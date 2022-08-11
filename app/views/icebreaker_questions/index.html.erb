@@ -1,0 +1,23 @@
+<div id="page-content">
+  <h1>Christian Speed Dating SD</h1>
+  
+  <h3>Upload Icebreaker Questions</h3>
+  
+  <div>
+      <%= form_tag("/upload_icebreaker_questions", :multipart => true) do %>
+        <div class="form-row">
+          <label for="attendees">Upload CSV file with icebreaker questions:</label>
+        </div>
+        
+        <div>
+          <%= file_field_tag 'icebreaker_questions_csv' %>
+        </div>
+        
+        <div class="form-row">
+          <div class="actions">
+            <%= submit_tag 'Submit' %>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div>

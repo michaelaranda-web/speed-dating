@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   post 'upload', to: 'welcome#upload'
   
   resources :assignments
+  
+  resources :icebreaker_questions
+  post 'upload_icebreaker_questions', to: 'icebreaker_questions#upload'
 end

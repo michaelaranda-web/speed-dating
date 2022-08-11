@@ -3,11 +3,26 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   
-  .tab-pane .tab-pane-container {
-    display: flex;
+  .tab-pane { 
+    .icebreaker-container {
+      padding: 25px 0 0;
+      
+      .icebreaker-question-label {
+        font-weight: bold;
+        font-size: 16px;
+      }
+      
+      .icebreaker-question-text {
+        font-size: 16px;
+      }
+    }
     
-    #minglers-section-container {
-      padding-left: 35px;
+    .tab-pane-container {
+      display: flex;
+      
+      #minglers-section-container {
+        padding-left: 35px;
+      }
     }
   }
 }
@@ -54,4 +69,8 @@ h1, h2, h3, h4 {
 
 .minglers-section {
   padding-left: 10px;
+}
+
+#upload-icebreaker-questions-header {
+  padding-bottom: 20px;
 }

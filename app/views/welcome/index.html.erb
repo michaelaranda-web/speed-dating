@@ -1,6 +1,10 @@
 <div id="page-content">
   <h1>Christian Speed Dating SD</h1>
   
+  <div id="upload-icebreaker-questions-header">
+    <%= link_to "Upload Icebreaker Questions", icebreaker_questions_path %>
+  </div>
+  
   <div>
       <%= form_tag({:action => :upload}, :multipart => true) do %>
         <div>
