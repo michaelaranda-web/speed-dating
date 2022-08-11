@@ -93,7 +93,7 @@ class AssignmentsController < ApplicationController
   
   def move_attendee_to_start_of_line(attendee, attendee_array)
     original_array_without_attendee = attendee_array.filter {|a| a.id != attendee.id}
-    [attendee, original_array_without_attendee.shuffle].flatten
+    [attendee, original_array_without_attendee].flatten
   end
   
   def male_and_female_mingled_last_round?(male, female, minglers_from_previous_round)
