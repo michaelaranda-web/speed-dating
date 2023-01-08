@@ -1,3 +1,3 @@
 class Assignment < ApplicationRecord
-    has_many :attendees
+    has_many :assignment_matches
 end

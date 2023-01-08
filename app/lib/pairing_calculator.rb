@@ -36,7 +36,9 @@ class PairingCalculator
             pairing_string = "#{male_attendee[:first_name]}#{male_attendee[:last_name]}#{male_attendee[:id]} + #{female_attendee[:first_name]}#{female_attendee[:last_name]}#{female_attendee[:id]}"
             pairing_hash = {
               male: "#{male_attendee[:first_name]} #{male_attendee[:last_name]}",
-              female: "#{female_attendee[:first_name]} #{female_attendee[:last_name]}"
+              female: "#{female_attendee[:first_name]} #{female_attendee[:last_name]}",
+              male_attendee_id: male_attendee[:id],
+              female_attendee_id: female_attendee[:id]
             }
 
             if (pairings_already_done.include?(pairing_string) && number_of_reruns != max_num_of_reruns) || females_already_paired.include?(female_attendee.id) || male_and_female_mingled_last_round?(male_attendee, female_attendee, minglers_from_previous_round)
@@ -81,6 +83,8 @@ class PairingCalculator
       end
     end
 
+    save_records!(assignment, pairings_by_round, mingle_table_by_round)
+
     return pairings_by_round, mingle_table_by_round
   end
 
@@ -93,5 +97,33 @@ class PairingCalculator
   def male_and_female_mingled_last_round?(male, female, minglers_from_previous_round)
     return false if minglers_from_previous_round.nil?
     minglers_from_previous_round.include?(male) && minglers_from_previous_round.include?(female)
+  end
+
+  def save_records!(assignment, pairings_by_round, mingle_table_by_round)
+    ActiveRecord::Base.transaction do
+      pairings_by_round.each_with_index do |pairings, index|
+        pairings.each do |pairing|
+          AssignmentMatch.create!(
+            assignment_id: assignment.id,
+            male_attendee_id: pairing[:male_attendee_id],
+            female_attendee_id: pairing[:female_attendee_id],
+            round: index
+          )
+        end
+
+        mingle_table_by_round.each_with_index do |minglers_by_round, index|
+          minglers_by_round.each do |mingler|
+            male_attendee_id = mingler.gender == "male" ? mingler.id : nil
+            female_attendee_id = mingler.gender == "female" ? mingler.id : nil
+            AssignmentMatch.create!(
+              assignment_id: assignment.id,
+              male_attendee_id: male_attendee_id,
+              female_attendee_id: female_attendee_id,
+              round: index
+            )
+          end
+        end
+      end
+    end
   end
 end
