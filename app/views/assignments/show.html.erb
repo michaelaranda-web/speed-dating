@@ -41,7 +41,7 @@
             <ul class="minglers-section">
               <% @mingle_table_by_round[i].each do |mingler| %>
                 <li>
-                  <%= mingler[:name] %>
+                  <%= mingler[:first_name] %>  <%= mingler[:last_name] %>
                 </li>
               <% end %>
             </ul>

@@ -33,10 +33,10 @@ class PairingCalculator
 
         male_attendees.slice(0..number_of_assignments_needed - 1).shuffle.each_with_index do |male_attendee, i|
           female_attendees.each do |female_attendee|
-            pairing_string = "#{male_attendee[:name]}#{male_attendee[:id]} + #{female_attendee[:name]}#{female_attendee[:id]}"
+            pairing_string = "#{male_attendee[:first_name]}#{male_attendee[:last_name]}#{male_attendee[:id]} + #{female_attendee[:first_name]}#{female_attendee[:last_name]}#{female_attendee[:id]}"
             pairing_hash = {
-              male: male_attendee[:name],
-              female: female_attendee[:name]
+              male: "#{male_attendee[:first_name]} #{male_attendee[:last_name]}",
+              female: "#{female_attendee[:first_name]} #{female_attendee[:last_name]}"
             }
 
             if (pairings_already_done.include?(pairing_string) && number_of_reruns != max_num_of_reruns) || females_already_paired.include?(female_attendee.id) || male_and_female_mingled_last_round?(male_attendee, female_attendee, minglers_from_previous_round)

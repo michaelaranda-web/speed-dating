@@ -10,25 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_11_202248) do
-  create_table "assignments", charset: "utf8", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2023_01_08_020119) do
+  create_table "assignments", charset: "utf8mb3", force: :cascade do |t|
     t.integer "num_tables"
     t.integer "num_rounds"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "attendees", charset: "utf8", force: :cascade do |t|
-    t.string "name"
+  create_table "attendees", charset: "utf8mb3", force: :cascade do |t|
+    t.string "first_name"
     t.integer "age"
     t.string "phone_number"
     t.string "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "assignments_id"
+    t.string "last_name"
   end
 
-  create_table "icebreaker_questions", charset: "utf8", force: :cascade do |t|
+  create_table "icebreaker_questions", charset: "utf8mb3", force: :cascade do |t|
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
