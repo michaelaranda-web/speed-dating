@@ -102,28 +102,31 @@ class PairingCalculator
   def save_records!(assignment, pairings_by_round, mingle_table_by_round)
     ActiveRecord::Base.transaction do
       pairings_by_round.each_with_index do |pairings, index|
-        pairings.each do |pairing|
-          AssignmentMatch.create!(
-            assignment_id: assignment.id,
-            male_attendee_id: pairing[:male_attendee_id],
-            female_attendee_id: pairing[:female_attendee_id],
-            round: index
-          )
-        end
-
-        mingle_table_by_round.each_with_index do |minglers_by_round, index|
-          minglers_by_round.each do |mingler|
-            male_attendee_id = mingler.gender == "male" ? mingler.id : nil
-            female_attendee_id = mingler.gender == "female" ? mingler.id : nil
+          pairings.each do |pairing|
             AssignmentMatch.create!(
               assignment_id: assignment.id,
-              male_attendee_id: male_attendee_id,
-              female_attendee_id: female_attendee_id,
+              male_attendee_id: pairing[:male_attendee_id],
+              female_attendee_id: pairing[:female_attendee_id],
+              is_mingler: false,
               round: index
             )
           end
         end
+
+        mingle_table_by_round.each_with_index do |minglers_by_round, index|
+            minglers_by_round.each do |mingler|
+              male_attendee_id = mingler.gender == "male" ? mingler.id : nil
+              female_attendee_id = mingler.gender == "female" ? mingler.id : nil
+
+              AssignmentMatch.create!(
+                assignment_id: assignment.id,
+                male_attendee_id: male_attendee_id,
+                female_attendee_id: female_attendee_id,
+                is_mingler: true,
+                round: index
+              )
+            end
+        end
       end
     end
   end
-end

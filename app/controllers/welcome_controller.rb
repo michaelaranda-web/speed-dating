@@ -15,6 +15,8 @@ class WelcomeController < ApplicationController
     csv.each do |row|
       Attendee.create(first_name: row[0], last_name: row[1], age: row[2].to_i, gender: row[3].downcase, phone_number: row[4], assignments_id: @new_assignments_session.id)
     end
+
+    PairingCalculator.new.calculate(@new_assignments_session)
     
     redirect_to assignment_url(@new_assignments_session), status: :found
   end

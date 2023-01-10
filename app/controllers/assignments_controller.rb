@@ -7,7 +7,7 @@ class AssignmentsController < ApplicationController
     assignment = Assignment.find(params[:id])
     @icebreaker_questions = IcebreakerQuestion.first(assignment.num_rounds)
 
-    @pairings_by_round, @mingle_table_by_round = PairingCalculator.new.calculate(assignment)
+    @pairings_by_round, @mingle_table_by_round = PairingViewer.new.views(assignment)
   end
   
   private
