@@ -1,11 +1,8 @@
 class PairingCalculator
-  def calculate(assignment)
+  def calculate(assignment, male_attendees, female_attendees)
     pairings_by_round = []
     mingle_table_by_round = []
     pairings_already_done = []
-
-    male_attendees = Attendee.where(assignments_id: assignment.id, gender: "male").shuffle
-    female_attendees = Attendee.where(assignments_id: assignment.id, gender: "female").shuffle
 
     number_of_assignments_needed = [assignment.num_tables, male_attendees.count, female_attendees.count].min
 
@@ -31,12 +28,12 @@ class PairingCalculator
           end
         end
 
-        male_attendees.slice(0..number_of_assignments_needed - 1).shuffle.each_with_index do |male_attendee, i|
-          female_attendees.each do |female_attendee|
+        male_attendees_to_match = male_attendees.slice(0..number_of_assignments_needed - 1).shuffle
+        male_attendees_to_match.each do |male_attendee|
+          female_attendees_not_matched_with_male_in_prior_assignment = calculate_non_exclusion_list(male_attendee, female_attendees)
+          female_attendees_not_matched_with_male_in_prior_assignment.each do |female_attendee|
             pairing_string = "#{male_attendee[:first_name]}#{male_attendee[:last_name]}#{male_attendee[:id]} + #{female_attendee[:first_name]}#{female_attendee[:last_name]}#{female_attendee[:id]}"
             pairing_hash = {
-              male: "#{male_attendee[:first_name]} #{male_attendee[:last_name]}",
-              female: "#{female_attendee[:first_name]} #{female_attendee[:last_name]}",
               male_attendee_id: male_attendee[:id],
               female_attendee_id: female_attendee[:id]
             }
@@ -89,6 +86,10 @@ class PairingCalculator
   end
 
   private
+
+  def calculate_non_exclusion_list(male_attendee, female_attendees)
+    female_attendees - Attendee.where(id: AssignmentMatch.where(male_attendee_id: male_attendee.id, is_mingler: false).pluck(:female_attendee_id))
+  end
   def move_attendee_to_start_of_line(attendee, attendee_array)
     original_array_without_attendee = attendee_array.filter {|a| a.id != attendee.id}
     [attendee, original_array_without_attendee].flatten
