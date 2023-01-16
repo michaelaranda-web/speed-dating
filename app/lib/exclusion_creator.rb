@@ -7,11 +7,11 @@
           female_attendee_id = nil
 
           if (row[3].downcase == 'male')
-            male_attendee_id = Attendee.find_by!(first_name: row[0], last_name: row[1], gender: 'male').id
-            female_attendee_id = Attendee.find_by!(first_name: row[4], last_name: row[5], gender: 'female').id
+            male_attendee_id = Attendee.find_by!(first_name: row[0]&.strip, last_name: row[1]&.strip, gender: 'male').id
+            female_attendee_id = Attendee.find_by!(first_name: row[4]&.strip, last_name: row[5]&.strip, gender: 'female').id
           else
-            female_attendee_id = Attendee.find_by!(first_name: row[0], last_name: row[1], gender: 'female').id
-            male_attendee_id = Attendee.find_by!(first_name: row[4], last_name: row[5], gender: 'male').id
+            female_attendee_id = Attendee.find_by!(first_name: row[0]&.strip, last_name: row[1]&.strip, gender: 'female').id
+            male_attendee_id = Attendee.find_by!(first_name: row[4]&.strip, last_name: row[5]&.strip, gender: 'male').id
           end
 
           Exclusion.create!(female_attendee_id: female_attendee_id, male_attendee_id: male_attendee_id)
