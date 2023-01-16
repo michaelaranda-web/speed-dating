@@ -81,6 +81,7 @@ class PairingCalculator
     end
 
     save_records!(assignment, pairings_by_round, mingle_table_by_round)
+    save_exclusions!(assignment)
 
     return pairings_by_round, mingle_table_by_round
   end
@@ -88,7 +89,7 @@ class PairingCalculator
   private
 
   def calculate_non_exclusion_list(male_attendee, female_attendees)
-    female_attendees - Attendee.where(id: AssignmentMatch.where(male_attendee_id: male_attendee.id, is_mingler: false).pluck(:female_attendee_id))
+    female_attendees - Attendee.where(id: Exclusion.where(male_attendee_id: male_attendee.id).pluck(:female_attendee_id))
   end
   def move_attendee_to_start_of_line(attendee, attendee_array)
     original_array_without_attendee = attendee_array.filter {|a| a.id != attendee.id}
@@ -100,6 +101,18 @@ class PairingCalculator
     minglers_from_previous_round.include?(male) && minglers_from_previous_round.include?(female)
   end
 
+  def save_exclusions!(assignment)
+    ActiveRecord::Base.transaction do
+      assignment_matches_this_round = AssignmentMatch.where(assignment_id: assignment.id, is_mingler: false)
+
+      assignment_matches_this_round.each do |assignment_match|
+        Exclusion.create!(
+          male_attendee_id: assignment_match.male_attendee_id,
+          female_attendee_id: assignment_match.female_attendee_id,
+        )
+      end
+    end
+  end
   def save_records!(assignment, pairings_by_round, mingle_table_by_round)
     ActiveRecord::Base.transaction do
       pairings_by_round.each_with_index do |pairings, index|

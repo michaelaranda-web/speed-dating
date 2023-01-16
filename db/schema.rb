@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_16_002130) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_16_002914) do
   create_table "assignment_matches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "round", null: false
@@ -36,6 +36,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_16_002130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "last_name"
+  end
+
+  create_table "exclusions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "male_attendee_id", null: false
+    t.integer "female_attendee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "icebreaker_questions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
