@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_08_023735) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_16_002130) do
   create_table "assignment_matches", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "round", null: false
@@ -35,7 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_08_023735) do
     t.string "gender"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "assignments_id"
     t.string "last_name"
   end
 
