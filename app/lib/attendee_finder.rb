@@ -1,10 +1,9 @@
 #this class will parse the csv and either find or create the attendee returning a list of female and male attendees
 
 class AttendeeFinder
-    def parse_csv(csv_file_name)
+    def parse_csv(csv_text)
       attendees = [];
 
-      csv_text = csv_file_name.read
       csv = CSV.parse(csv_text, :headers => true)
       csv.each do |row|
         attendee = Attendee.find_by(first_name: row[0], last_name: row[1], gender: row[3].downcase)
