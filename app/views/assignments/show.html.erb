@@ -25,20 +25,20 @@
         
         <div class="tab-pane-container">
           <div id="pairs-section-container">
-            <h3>Tables:</h3>
+            <h3>Tables</h3>
             
-            <ul class="pairs-section">
+            <ul class="pairs-section pairs-minglers-section">
               <% pairs_for_round.each_with_index do |pair, j| %>
                 <li>
-                  <span class="table-number">Table <%= j+1 %></span> <%= pair[:male] %> & <%= pair[:female] %>
+                  <span class="table-number"><%= j+1 %></span> <%= pair[:male] %> & <%= pair[:female] %>
                 </li>
               <% end %>
             </ul>
           </div>
           
           <div id="minglers-section-container">
-            <h3>Minglers:</h3>
-            <ul class="minglers-section">
+            <h3>Minglers</h3>
+            <ul class="pairs-minglers-section">
               <% @mingle_table_by_round[i].each do |mingler| %>
                 <li>
                   <%= mingler[:first_name] %>  <%= mingler[:last_name] %>

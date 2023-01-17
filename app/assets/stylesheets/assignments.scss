@@ -1,3 +1,5 @@
+$nameFontSize: 24px;
+
 #page-content {
   padding: 15px;
   font-family: 'Roboto', sans-serif;
@@ -36,6 +38,8 @@ ul {
   
   li {
     padding: 3px 0;
+    display: flex;
+    gap: 8px;
   }
 }
 
@@ -46,7 +50,7 @@ ul {
 .table-number {
   font-weight: bold;
   color: #d99432;
-  margin-right: 8px;
+  width: 24px;
 }
 
 #page-content h1 {
@@ -57,18 +61,26 @@ h1, h2, h3, h4 {
   font-weight: 400;
 }
 
-.pairs-section {
-  column-count: 2;
-  display: inline-block;
-  padding-left: 10px;
+#pairs-section-container {
+  flex: 3 1 auto;
+}
+
+#minglers-section-container {
+  flex: 2 1 auto;
+}
+
+.pairs-minglers-section { 
+  padding-left: 0px;
+  font-size: $nameFontSize;
   
   li {
-    padding: 3px 10px 0 0;
+    padding: 12px 0 0 0;
+    border-bottom: 1px solid #d99432;
   }
 }
 
-.minglers-section {
-  padding-left: 10px;
+.pairs-section {
+  column-count: 2;
 }
 
 #upload-icebreaker-questions-header {

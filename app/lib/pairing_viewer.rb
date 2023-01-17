@@ -23,8 +23,8 @@ class PairingViewer
           female_attendee = Attendee.find_by_id(assignment_match.female_attendee_id)
 
           pairing_hash = {
-            male: "#{male_attendee[:first_name]} #{male_attendee[:last_name]}",
-            female: "#{female_attendee[:first_name]} #{female_attendee[:last_name]}"
+            male: "#{male_attendee[:first_name]} #{male_attendee[:last_name][0]}.",
+            female: "#{female_attendee[:first_name]} #{female_attendee[:last_name][0]}."
           }
 
           assignments_for_round.push(pairing_hash)
