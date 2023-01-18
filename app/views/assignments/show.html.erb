@@ -29,8 +29,12 @@
             
             <ul class="pairs-section pairs-minglers-section">
               <% pairs_for_round.each_with_index do |pair, j| %>
-                <li>
-                  <span class="table-number"><%= j+1 %></span> <%= pair[:male] %> & <%= pair[:female] %>
+                <li class="table-pair">
+                  <span class="table-number"><%= j+1 %></span>
+                  <div class="table-names">
+                    <span><%= pair[:male] %></span>
+                    <span><%= pair[:female] %></span>
+                  </div>
                 </li>
               <% end %>
             </ul>
@@ -39,7 +43,7 @@
           <div id="minglers-section-container">
             <h3>Minglers</h3>
             <ul class="pairs-minglers-section">
-              <% @mingle_table_by_round[i].each do |mingler| %>
+              <% @mingle_table_by_round[i].sort.each do |mingler| %>
                 <li>
                   <%= mingler[:first_name] %>  <%= mingler[:last_name][0] %>.
                 </li>
