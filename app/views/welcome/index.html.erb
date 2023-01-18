@@ -16,6 +16,26 @@
           <label for="num_rounds">Number of rounds:</label>
           <input id="num_rounds" name="num_rounds" type="text" />
         </div>
+      <br/>
+      <div>
+        <%= check_box_tag(:clear_db) %>
+        <%= label_tag(:clear_db, "Start clean (no attendees, exclusions, or assignments") %>
+      </div>
+      <br/>
+      <div>
+        <%= radio_button_tag(:actions, "actions_attendees") %>
+        <%= label_tag(:actions_attendee, "Just find or create attendees") %>
+      </div>
+
+      <div>
+        <%= radio_button_tag(:actions, "actions_attendees_exclusions") %>
+        <%= label_tag(:actions_attendee_exclusions, "Find or create attendees and exclusions") %>
+      </div>
+
+      <div>
+        <%= radio_button_tag(:actions, "actions_attendees_exclusions_assignments", checked: true) %>
+        <%= label_tag(:actions_attendee_exclusions_assignments, "Find or create attendees and exclusions and create assignments") %>
+      </div>
         
         <div class="form-row">
           <label for="attendees">Upload CSV file with list of attendees (name,age,gender,phone number):</label>
