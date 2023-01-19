@@ -4,7 +4,7 @@ class WelcomeController < ApplicationController
   def index
     puts "*****************************hello"
 
-    @assignments = Assignment.last(5)
+    @assignments = Assignment.last(5).reverse
   end
   
   def upload
