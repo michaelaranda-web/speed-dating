@@ -3,6 +3,8 @@ require 'csv'
 class WelcomeController < ApplicationController
   def index
     puts "*****************************hello"
+
+    @assignments = Assignment.last(5)
   end
   
   def upload

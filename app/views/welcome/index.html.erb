@@ -19,7 +19,7 @@
       <br/>
       <div>
         <%= check_box_tag(:clear_db) %>
-        <%= label_tag(:clear_db, "Start clean (no attendees, exclusions, or assignments") %>
+        <%= label_tag(:clear_db, "Start clean (no attendees, exclusions, or assignments)") %>
       </div>
       <br/>
       <div>
@@ -50,6 +50,17 @@
             <%= submit_tag 'Submit' %>
           </div>
         </div>
+
+        <hr />
+
+        <div class='assignments-list'>
+          <h4>Saved Assignments</h4>
+          <% @assignments.each do |assignment| %>
+            <a href='/assignments/<%= assignment.id %>'>Assignment <%= assignment.id %></a> 
+          <% end %>
+        </div>
+
+
       <% end %>
   </div>
 </div>
